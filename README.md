@@ -35,3 +35,4 @@ Si quieres mantener "type": "module" y utilizar Babel, puedes hacer lo siguiente
 Deja los archivos con la extensión .cjs y sigue utilizando Babel para transpilar el código.
 Usa archivos .js sin "type": "module" si prefieres seguir usando la sintaxis de módulos CommonJS.
 El manejo de extensiones es crucial para cómo Node.js interpreta y ejecuta tu código, y esto afecta directamente la forma en que Babel puede interactuar con él.
+# Prueba
