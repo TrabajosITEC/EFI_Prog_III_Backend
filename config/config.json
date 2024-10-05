@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "",
+    "password": "Root@2024Secure!",
     "database": "node",
     "host": "localhost",
     "dialect": "mysql",
