@@ -1,6 +1,6 @@
 import express from "express";
 import morgan from "morgan";
-import routerRegister from "./routes/register.routes.js";
+import routerUser from "./routes/user.routes.js";
 import cors from 'cors';
 import db from "../models/index.js";
 
@@ -16,7 +16,7 @@ app.use(morgan("dev"));
 app.get('/', (req, res) => {
     res.send('Esto es express');
 });
-app.use("/register", routerRegister);
+app.use("/user", routerUser);
 
 const port = process.env.PORT || 3001;
 
@@ -24,7 +24,7 @@ const startApp = async () => {
     try {
         console.log("Contenido de db:", Object.keys(db));
         console.log("Modelos cargados:", Object.keys(db).filter(key => db[key].findAll));
-        
+
         // await db.sequelize.sync({ alter: true });
         // console.log('Base de datos sincronizada con alter: true.');
 

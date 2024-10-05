@@ -1,4 +1,4 @@
-import { DataTypes } from "sequelize"; 
+import { DataTypes } from "sequelize";
 
 export default (sequelize) => {
   const Recipes = sequelize.define('Recipes', {
@@ -14,11 +14,11 @@ export default (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    RegisterId: { 
+    UserId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'Register',
+        model: 'User',
         key: 'id',
       },
     },
@@ -31,13 +31,13 @@ export default (sequelize) => {
       allowNull: false
     },
   }, {
-    tableName: 'Recipes',  
-    timestamps: false      
+    tableName: 'Recipes',
+    timestamps: false
   });
 
-  Recipes.associate = function(models) {
-    Recipes.belongsTo(models.Register, {
-      foreignKey: 'RegisterId',
+  Recipes.associate = function (models) {
+    Recipes.belongsTo(models.User, {
+      foreignKey: 'UserId',
     })
   };
 
