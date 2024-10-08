@@ -1,6 +1,5 @@
 import { DataTypes } from "sequelize";
 
-// Función que inicializa el modelo
 export default (sequelize) => {
   const User = sequelize.define('User', {
     userName: {
@@ -25,8 +24,8 @@ export default (sequelize) => {
   });
 
   User.associate = function (models) {
-    User.hasMany(models.Recipes, {
-      foreignKey: 'UserId',
+    User.hasMany(models.Purchase, {
+      foreignKey: 'user_id',
     })
   };
 
