@@ -8,29 +8,25 @@ export async function up(queryInterface, Sequelize) {
       primaryKey: true,
       type: Sequelize.INTEGER
     },
-    id_juego: {
-      type: Sequelize.INTEGER
+    game_id: {
+      type: Sequelize.INTEGER,
+      references: {
+        model: 'Game',
+        key: 'id'
+      },
     },
-    id_usuario: {
+    user_id: {
       type: Sequelize.INTEGER,
       references: {
         model: 'User',
         key: 'id'
       },
     },
-    puntuacion: {
+    rating: {
       type: Sequelize.INTEGER
     },
-    comentario: {
+    comment: {
       type: Sequelize.TEXT
-    },
-    createdAt: {
-      allowNull: false,
-      type: Sequelize.DATE
-    },
-    updatedAt: {
-      allowNull: false,
-      type: Sequelize.DATE
     }
   });
 }

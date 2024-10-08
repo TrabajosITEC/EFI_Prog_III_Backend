@@ -7,8 +7,13 @@ export default (sequelize) => {
     {
       game_id:{
         type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Game',
+          key: 'id',
+        },
       }, 
-      id_usuario: {
+      user_id:{
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -16,11 +21,13 @@ export default (sequelize) => {
           key: 'id',
         },
       },
-      puntuacion:{
+      rating:{
         type: DataTypes.INTEGER,
+        allowNull: false,
       },
-      comentario: {
-        type: DataTypes.TEXT
+      comment:{
+        type: DataTypes.TEXT,
+        allowNull: true,
       }
     }, {
       tableName: 'Review',
@@ -29,9 +36,12 @@ export default (sequelize) => {
   
     Review.associate = function (models) {
       Review.belongsTo(models.User, {
-        foreignKey: 'id_usuario',
+        foreignKey: 'user_id',
+      }),
+      Review.belongsTo(models.Game, {
+        foreignKey: 'game_id',
       })
-    }
+    };
 
   return Review;
 };
