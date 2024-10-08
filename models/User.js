@@ -27,6 +27,9 @@ export default (sequelize) => {
   User.associate = function (models) {
     User.hasMany(models.Recipes, {
       foreignKey: 'UserId',
+    }),
+    User.hasMany(models.Review, {
+      foreignKey: 'id_usuario',
     })
   };
 
