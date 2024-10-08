@@ -28,14 +28,6 @@ export async function up(queryInterface, Sequelize) {
     total: {
       type: Sequelize.DECIMAL
     },
-    createdAt: {
-      allowNull: false,
-      type: Sequelize.DATE
-    },
-    updatedAt: {
-      allowNull: false,
-      type: Sequelize.DATE
-    }
   });
 }
 export async function down(queryInterface, Sequelize) {

@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 
 export default (sequelize) => {
   const Purchase = sequelize.define('Purchase', {
-    user_id: {
+    game_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {

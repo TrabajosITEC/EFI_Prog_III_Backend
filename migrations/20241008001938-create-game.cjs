@@ -23,14 +23,6 @@ export async function up(queryInterface, Sequelize) {
     available: {
       type: Sequelize.BOOLEAN
     },
-    createdAt: {
-      allowNull: false,
-      type: Sequelize.DATE
-    },
-    updatedAt: {
-      allowNull: false,
-      type: Sequelize.DATE
-    }
   });
 }
 export async function down(queryInterface, Sequelize) {
