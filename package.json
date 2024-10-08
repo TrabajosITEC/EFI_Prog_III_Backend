@@ -12,7 +12,8 @@
     "undo-migrate-all": "babel-node node_modules/.bin/sequelize-cli db:migrate:undo:all",
     "create-model": "npx sequelize-cli model:generate",
     "create-seed": "npx sequelize-cli seed:generate",
-    "seed": "npx sequelize-cli db:seed:all"
+    "seed": "npx sequelize-cli db:seed:all",
+    "undo-seed": "npx sequelize-cli db:seed:undo:all"
   },
   "keywords": [],
   "author": "",
