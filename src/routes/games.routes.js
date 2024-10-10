@@ -3,12 +3,12 @@ import { getAllGames, postGame, updateGame, deleteGame } from "../controllers/ga
 
 const routerGames = Router();
 
-routerGames.get('/', getAllGames);
+routerGames.get('/', getAllGames); // La ruta es http://localhost:3001/games GET
 
-routerGames.post('/', postGame);
+routerGames.post('/', postGame); // http://localhost:3001/games POST
 
-routerGames.put('/:id', updateGame);
+routerGames.put('/:id', updateGame); // http://localhost:3001/games/:id PUT
 
-routerGames.delete('/:id', deleteGame);
+routerGames.delete('/:id', deleteGame); // http://localhost:3001/games/:id DELETE
 
 export default routerGames;
