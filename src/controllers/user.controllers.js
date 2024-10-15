@@ -24,5 +24,30 @@ export const postUsersRegister = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ error: 'Error al insertar base de datos' })
     }
-}
-//ToDo: modelo detail
+};
+
+export const getUserById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const findUser = await db.User.findByPk(id);
+
+        if (findUser) {
+            try {
+                return res.status(200).json({ 'Usuario encontrado': findUser });
+
+            } catch (error) {
+                return res.status(500).json({ message: error });
+
+            }
+
+        } else {
+            return res.status(404).json({ message: `El usuario con ID ${id} no existe.` });
+
+        };
+
+    } catch (error) {
+        return res.status(500).json({ message: error });
+
+    };
+
+};

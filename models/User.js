@@ -1,4 +1,5 @@
 import { DataTypes } from "sequelize";
+import bcrypt from 'bcrypt';
 
 export default (sequelize) => {
   const User = sequelize.define('User', {
@@ -20,7 +21,15 @@ export default (sequelize) => {
     }
   }, {
     tableName: 'User',
-    timestamps: false
+    timestamps: false,
+    hooks: {
+      beforeCreate: async (user, options) => {
+        
+        const salt = await bcrypt.genSalt(10);
+        
+        user.passWord = await bcrypt.hash(user.passWord, salt);
+      }
+    }
   });
 
   User.associate = function (models) {
