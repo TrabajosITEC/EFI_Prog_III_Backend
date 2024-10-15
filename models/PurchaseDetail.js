@@ -1,3 +1,6 @@
+'use strict';
+import { DataTypes } from 'sequelize';
+
 export default (sequelize) => {
   const PurchaseDetail = sequelize.define('PurchaseDetail', {
     game_id: {
