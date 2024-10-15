@@ -25,3 +25,4 @@ export const postUsersRegister = async (req, res) => {
         return res.status(500).json({ error: 'Error al insertar base de datos' })
     }
 }
+//ToDo: modelo detail

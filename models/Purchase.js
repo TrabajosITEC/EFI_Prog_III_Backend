@@ -2,14 +2,6 @@ import { DataTypes } from "sequelize";
 
 export default (sequelize) => {
   const Purchase = sequelize.define('Purchase', {
-    game_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'Game',
-        key: 'id',
-      },
-    },
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -28,12 +20,27 @@ export default (sequelize) => {
     }
   }, {
     tableName: 'Purchase',
-    timestamps: false
+    timestamps: false,
+    hooks: {
+      async beforeSave(purchase, options) {
+        const purchaseDetails = await sequelize.models.PurchaseDetail.findAll({
+          where: { purchase_id: purchase.id },
+          include: [{ model: sequelize.models.Game }]
+        });
+
+        let total = 0;
+        purchaseDetails.forEach(detail => {
+          total += detail.quantity * detail.Game.price;
+        });
+
+        purchase.total = total;
+      }
+    }
   });
 
   Purchase.associate = function (models) {
-    Purchase.belongsTo(models.Game, {
-      foreignKey: 'game_id',
+    Purchase.hasMany(models.PurchaseDetail, {
+      foreignKey: 'purchase_id'
     }),
       Purchase.belongsTo(models.User, {
         foreignKey: 'user_id',

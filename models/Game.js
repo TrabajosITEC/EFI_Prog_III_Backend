@@ -26,18 +26,16 @@ export default (sequelize) => {
   }, {
     tableName: 'Game',
     timestamps: false
-  
   });
 
   Game.associate = function (models) {
-    Game.hasMany(models.Purchase, {
+    Game.hasMany(models.PurchaseDetail, {
       foreignKey: 'game_id'
     }),
-    Game.hasMany(models.Review, {
-      foreignKey: 'game_id'
-    })
-
-  };  
+      Game.hasMany(models.Review, {
+        foreignKey: 'game_id'
+      })
+  };
 
   return Game;
 

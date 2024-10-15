@@ -8,13 +8,6 @@ export async function up(queryInterface, Sequelize) {
       primaryKey: true,
       type: Sequelize.INTEGER
     },
-    game_id: {
-      type: Sequelize.INTEGER,
-      references: {
-        model: 'Game',
-        key: 'id'
-      },
-    },
     user_id: {
       type: Sequelize.INTEGER,
       references: {
