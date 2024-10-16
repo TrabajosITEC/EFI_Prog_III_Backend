@@ -1,3 +1,5 @@
+import { DataTypes } from "sequelize";
+
 export default (sequelize) => {
   const PurchaseDetail = sequelize.define('PurchaseDetail', {
     game_id: {
@@ -8,11 +10,11 @@ export default (sequelize) => {
         key: 'id',
       },
     },
-    user_id: {
+    purchase_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'User',
+        model: 'Purchase',
         key: 'id',
       },
     },

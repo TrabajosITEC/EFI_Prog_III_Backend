@@ -2,6 +2,8 @@ import express from "express";
 import morgan from "morgan";
 import routerUser from "./routes/user.routes.js";
 import routerGames from "./routes/games.routes.js";
+import routerPurchases from "./routes/purchases.routes.js";
+import routerPurchaseDetail from "./routes/purchasesDetails.routes.js";
 import cors from 'cors';
 import db from "../models/index.js";
 
@@ -21,6 +23,10 @@ app.get('/', (req, res) => {
 app.use("/user", routerUser);
 
 app.use('/games', routerGames);
+
+app.use('/purchases', routerPurchases);
+
+app.use('/purchasesDetails', routerPurchaseDetail);
 
 const port = process.env.PORT || 3001;
 

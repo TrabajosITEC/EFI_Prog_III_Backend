@@ -25,14 +25,6 @@ export async function up(queryInterface, Sequelize) {
     quantity: {
       type: Sequelize.INTEGER
     },
-    createdAt: {
-      allowNull: false,
-      type: Sequelize.DATE
-    },
-    updatedAt: {
-      allowNull: false,
-      type: Sequelize.DATE
-    }
   });
 }
 export async function down(queryInterface, Sequelize) {

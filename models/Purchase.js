@@ -22,8 +22,8 @@ export default (sequelize) => {
     tableName: 'Purchase',
     timestamps: false,
     hooks: {
-      async beforeSave(purchase, options) {
-        const purchaseDetails = await sequelize.models.PurchaseDetail.findAll({
+      async afterSave(purchase, options) {
+        const purchaseDetails = await sequelize.models.PurchaseDetails.findAll({
           where: { purchase_id: purchase.id },
           include: [{ model: sequelize.models.Game }]
         });
@@ -33,7 +33,11 @@ export default (sequelize) => {
           total += detail.quantity * detail.Game.price;
         });
 
+        // Actualizamos el total calculado en la compra
         purchase.total = total;
+
+        // Guardamos nuevamente el registro de la compra con el total actualizado
+        await purchase.save();
       }
     }
   });

@@ -9,7 +9,7 @@ export async function up(queryInterface, Sequelize) {
     rating: 5,
     comment: "burritoOrtega"
   }, {
-    game_id: 1,
+    game_id: 2,
     user_id: 2,
     rating: 4,
     comment: null
