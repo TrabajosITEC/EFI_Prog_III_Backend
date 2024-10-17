@@ -17,8 +17,8 @@ export const login = async(req, res) => {
       return res.status(404).json('La contraseña ingresada es incorrecta.');
 
     }else{
-      const token = generateToken({ id: user.id, username: user.userName, password: user.passWord });
-      
+      const token = generateToken({ id: user.id, username: user.userName, role: user.role });
+
       return res.json({
         success: true,
         message: 'Autenticación exitosa',

@@ -10,14 +10,14 @@ export const getUserRegister = async (req, res) => {
 }
 
 export const postUsersRegister = async (req, res) => {
-    const { userName, passWord, email, role } = req.body;
+    const { userName, passWord, email } = req.body;
     try {
         const newUser = await db.User.create(
             {
                 userName: userName,
                 passWord: passWord,
                 email: email,
-                role: role
+                role: 'gamer'
             },
         )
         res.status(201).json({ message: 'Usuario creado exitosamente' })
