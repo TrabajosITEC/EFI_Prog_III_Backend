@@ -1,11 +1,16 @@
+import bodyParser from "body-parser";
+import cors from 'cors';
+import db from "../models/index.js";
+import dotenv from 'dotenv';
 import express from "express";
 import morgan from "morgan";
-import routerUser from "./routes/user.routes.js";
 import routerGames from "./routes/games.routes.js";
 import routerPurchases from "./routes/purchases.routes.js";
 import routerPurchaseDetail from "./routes/purchasesDetails.routes.js";
-import cors from 'cors';
-import db from "../models/index.js";
+import routerLogin from "./routes/login.routes.js";
+import routerUser from "./routes/user.routes.js";
+
+dotenv.config(); // Trae las variables de entorno del .env
 
 const app = express();
 
@@ -14,6 +19,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
+app.use(bodyParser.json());
 
 // Routes
 app.get('/', (req, res) => {
@@ -27,6 +33,8 @@ app.use('/games', routerGames);
 app.use('/purchases', routerPurchases);
 
 app.use('/purchasesDetails', routerPurchaseDetail);
+
+app.use('/login', routerLogin);
 
 const port = process.env.PORT || 3001;
 
