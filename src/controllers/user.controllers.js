@@ -62,7 +62,7 @@ export const getAuthUser = async (req, res) => {
   try {
     const currentUser = req.user;
     
-    return res.status(200).json({ "Usuario actual": currentUser});
+    return res.status(200).json({ 'Usuario actual': currentUser });
 
   } catch (error) {
     return res.status(500).json('Error al obtener los datos del usuario.');
