@@ -9,6 +9,7 @@ import routerPurchases from "./routes/purchases.routes.js";
 import routerPurchaseDetail from "./routes/purchasesDetails.routes.js";
 import routerLogin from "./routes/login.routes.js";
 import routerUser from "./routes/user.routes.js";
+import routerReview from "./routes/review.router.js";
 
 dotenv.config(); // Trae las variables de entorno del .env
 
@@ -35,6 +36,8 @@ app.use('/purchases', routerPurchases);
 app.use('/purchasesDetails', routerPurchaseDetail);
 
 app.use('/login', routerLogin);
+
+app.use('/reviews', routerReview);
 
 const port = process.env.PORT || 3001;
 
