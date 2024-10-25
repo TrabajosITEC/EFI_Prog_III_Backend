@@ -7,7 +7,7 @@ const routerReview = Router();
 
 routerReview.get('/', validateToken, getAllReviews); 
 
-routerReview.post('/', validateToken, blockedRouteFor('gamer'), postReview); 
+routerReview.post('/', validateToken, postReview); 
 
 routerReview.put('/:id', validateToken, blockedRouteFor('gamer'), updateReview); 
 
