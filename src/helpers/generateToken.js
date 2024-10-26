@@ -4,7 +4,7 @@ export const generateToken = (payload) => {
   const secretKey = process.env.JWT_SECRET;
 
   const options = {
-    expiresIn: '10s',
+    expiresIn: '1h',
   
   };
   
