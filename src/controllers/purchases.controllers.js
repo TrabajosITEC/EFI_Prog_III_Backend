@@ -1,3 +1,4 @@
+import { where } from "sequelize";
 import db from "../../models/index.js";
 
 export const getAllPurchases = async (req, res) => {
@@ -19,6 +20,31 @@ export const getAllPurchases = async (req, res) => {
 
 };
 
+export const getPurchesesByUser = async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const obtainPurchase = await db.Purchase.findAll(
+      {
+        where: {user_id: userId },
+        include: [{
+          model: db.PurchaseDetail,
+          attributes: ['game_id','quantity'],
+          include: [{            
+            model: db.Game,
+            attributes: ['title', 'price']
+          }]
+        }]
+      }
+    )
+    if (obtainPurchase.length === 0) {
+      return res.status(204).json('El listado de compras del usuario está vacío.');
+    } else {
+      return res.status(200).json(obtainPurchase);
+    }
+  } catch(error) {
+    return res.status(500).json({ message: error.message });
+  }
+}
 
 export const postPurchase = async (req, res) => {
   const { user_id, date, details } = req.body;
