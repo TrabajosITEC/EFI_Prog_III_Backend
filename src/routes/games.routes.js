@@ -5,7 +5,7 @@ import { blockedRouteFor } from "../helpers/blockedRouteFor.js";
 
 const routerGames = Router();
 
-routerGames.get('/', validateToken, getAllGames); // La ruta es http://localhost:3001/games GET
+routerGames.get('/', getAllGames); // La ruta es http://localhost:3001/games GET
 
 routerGames.post('/', validateToken, blockedRouteFor('gamer'), postGame); // http://localhost:3001/games POST
 
