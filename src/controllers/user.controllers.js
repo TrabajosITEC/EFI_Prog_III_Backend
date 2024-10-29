@@ -1,4 +1,5 @@
 import db from "../../models/index.js";
+import { Op } from "sequelize";
 
 export const getUserRegister = async (req, res) => {
   try {
@@ -12,21 +13,47 @@ export const getUserRegister = async (req, res) => {
 };
 
 export const postUsersRegister = async (req, res) => {
-  const { userName, passWord, email } = req.body;
+  const { username, password, email } = req.body;
   
   try {
-    const newUser = await db.User.create(
-      {
-        userName: userName,
-        passWord: passWord,
-        email: email,
-        role: 'gamer'
-      },
-    )
-    res.status(201).json({ message: 'Usuario creado exitosamente' })
- 
+    const alreadyExist = await db.User.findOne({
+      where: {
+        [Op.or]: [
+          { userName: username },
+          { email: email }
+
+        ]
+
+      }
+
+    }); 
+
+    if (alreadyExist) {
+      if (alreadyExist.userName === username) {
+        return res.status(409).json('El nombre de usuario ya existe.');
+
+      } else {
+        return res.status(409).json('Ya existe un usuario con ese email.');
+
+      }
+  
+    } else {
+      const newUser = await db.User.create(
+        {
+          userName: username,
+          passWord: password,
+          email: email,
+          role: 'gamer'
+        },
+      
+      );
+      
+      res.status(201).json({ message: 'Usuario creado exitosamente' });
+  
+    };
+
   } catch (error) {
-    return res.status(500).json({ error: 'Error al insertar base de datos' })
+    return res.status(500).json({ error: 'Error al insertar base de datos' });
   
   };
 
