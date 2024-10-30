@@ -86,7 +86,7 @@ export const getCart = async (req, res) => {
   
       // Calcular el total
       let total = cart.CartItems.reduce((sum, item) => {
-        return sum + (item.Game.price * item.quantity);
+        return sum + (item.Game.price * item.quantity)
       }, 0);
   
       // Crear la compra
@@ -118,3 +118,46 @@ export const getCart = async (req, res) => {
       return res.status(500).json({ message: error.message });
     }
   };
+
+
+// Eliminar un item del carrito
+export const removeFromCart = async (req, res) => {
+  const { cartItemId } = req.params;
+
+  try {
+      const deleted = await db.CartItem.destroy({
+          where: { id: cartItemId }
+      });
+
+      if (!deleted) {
+          return res.status(404).json({ message: 'Item no encontrado en el carrito' });
+      }
+
+      return res.status(200).json({ message: 'Item eliminado del carrito exitosamente' });
+  } catch (error) {
+      return res.status(500).json({ message: error.message });
+  }
+};
+
+// Vaciar todo el carrito
+export const clearCart = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+      const cart = await db.Cart.findOne({
+          where: { user_id: userId }
+      });
+
+      if (!cart) {
+          return res.status(404).json({ message: 'Carrito no encontrado' });
+      }
+
+      await db.CartItem.destroy({
+          where: { cart_id: cart.id }
+      });
+
+      return res.status(200).json({ message: 'Carrito vaciado exitosamente' });
+  } catch (error) {
+      return res.status(500).json({ message: error.message });
+  }
+};

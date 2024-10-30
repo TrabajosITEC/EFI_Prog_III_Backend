@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getCart, addToCart, checkoutCart } from "../controllers/carts.controllers.js";
+import { getCart, addToCart, checkoutCart, removeFromCart, clearCart } from "../controllers/carts.controllers.js";
 
 const routerCart = Router();
 
@@ -11,5 +11,11 @@ routerCart.post('/add', addToCart);
 
 // Finalizar compra desde el carrito
 routerCart.post('/checkout', checkoutCart);
+
+// Eliminar elemento del carrito
+routerCart.delete('/item/:cartItemId', removeFromCart);
+
+// Eliminar carrito completo
+routerCart.delete('/clear/:userId', clearCart);
 
 export default routerCart;
