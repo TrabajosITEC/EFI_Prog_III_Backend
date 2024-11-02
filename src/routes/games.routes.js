@@ -1,11 +1,15 @@
 import { Router } from "express";
-import { getAllGames, postGame, updateGame, deleteGame } from "../controllers/games.controllers.js";
+import { getAllGames, getGame, postGame, updateGame, deleteGame, searchGamesByName } from "../controllers/games.controllers.js";
 import { validateToken } from "../helpers/validateToken.js";
 import { blockedRouteFor } from "../helpers/blockedRouteFor.js";
 
 const routerGames = Router();
 
 routerGames.get('/', getAllGames); // La ruta es http://localhost:3001/games GET
+
+routerGames.get('/search', searchGamesByName);
+
+routerGames.get('/:id', getGame);
 
 routerGames.post('/', validateToken, blockedRouteFor('gamer'), postGame); // http://localhost:3001/games POST
 
