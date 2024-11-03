@@ -4,13 +4,13 @@
 export async function up(queryInterface, Sequelize) {
 
   await queryInterface.bulkInsert('Review', [{
-    game_id: 14,
-    user_id: 16,
+    game_id: 2,
+    user_id: 1,
     rating: 5,
     comment: "burritoOrtega"
   }, {
-    game_id: 13,
-    user_id: 17,
+    game_id: 4,
+    user_id: 2,
     rating: 4,
     comment: null
   },
