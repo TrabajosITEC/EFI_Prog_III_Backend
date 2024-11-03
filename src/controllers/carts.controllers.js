@@ -62,6 +62,46 @@ export const getCart = async (req, res) => {
       return res.status(500).json({ message: error.message });
     }
   };
+
+  //Sumar cantidad en el carrito
+  export const addQuantityCart = async(req, res) => {
+    const { cartId, gameId } = req.body;
+
+    try {
+      const existingItem = await db.CartItem.findOne({
+        where: {
+          cart_id: cartId,
+          game_id: gameId
+        }
+      });
+      
+      existingItem.quantity += 1;
+      await existingItem.save()
+      return res.status(200).json({ message: 'Se sumo una unidad al producto del carrito' });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  }
+
+//Restar cantidad en el carrito
+    export const substractQuantityCart = async(req, res) => {
+      const { cartId, gameId } = req.body;
+      
+      try {
+        const existingItem = await db.CartItem.findOne({
+          where: {
+            cart_id: cartId,
+            game_id: gameId
+          }
+        });
+        
+        existingItem.quantity -= 1;
+        await existingItem.save();
+        return res.status(200).json({ message: 'Se resto una unidad al producto del carrito' });
+      } catch (error) {
+        return res.status(500).json({ message: error.message });
+      }
+    }
   
   // Comprar desde el carrito
   export const checkoutCart = async (req, res) => {

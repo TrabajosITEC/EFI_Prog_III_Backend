@@ -4,14 +4,25 @@
 export async function up(queryInterface, Sequelize) {
 
   await queryInterface.bulkInsert('Game', [{
-    title: 'Manu',
+    title: 'FIFA 2024',
     genre: 'Sports',
     platform: 'XBOX',
     price: 400,
     available: true,
-
   }, {
-    title: 'Chapu',
+    title: 'God of War',
+    genre: 'RPG',
+    platform: 'PS4',
+    price: 100,
+    available: true,
+  }, {
+    title: 'The Last of Us',
+    genre: 'RPG',
+    platform: 'PS4',
+    price: 100,
+    available: true,
+  },  {
+    title: 'Mario Bros',
     genre: 'RPG',
     platform: 'PS4',
     price: 100,

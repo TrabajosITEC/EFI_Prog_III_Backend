@@ -37,7 +37,7 @@ export const getPurchesesByUser = async (req, res) => {
       }
     )
     if (obtainPurchase.length === 0) {
-      return res.status(204).json('El listado de compras del usuario está vacío.');
+      return res.status(404).json({ message: 'El listado de compras del usuario está vacío.' });
     } else {
       return res.status(200).json(obtainPurchase);
     }
