@@ -5,12 +5,12 @@ import { blockedRouteFor } from "../helpers/blockedRouteFor.js";
 
 const routerReview = Router();
 
-routerReview.get('/', validateToken, getAllReviews); 
+routerReview.get('/', getAllReviews);
 
-routerReview.post('/', validateToken, postReview); 
+routerReview.post('/', validateToken, postReview);
 
-routerReview.put('/:id', validateToken, blockedRouteFor('gamer'), updateReview); 
+routerReview.put('/:id', validateToken, blockedRouteFor('gamer'), updateReview);
 
-routerReview.delete('/:id', validateToken, blockedRouteFor('gamer'), deleteReview); 
+routerReview.delete('/:id', validateToken, blockedRouteFor('gamer'), deleteReview);
 
 export default routerReview;

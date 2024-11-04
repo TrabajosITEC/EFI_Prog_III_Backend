@@ -14,7 +14,7 @@ export const getUserRegister = async (req, res) => {
 
 export const postUsersRegister = async (req, res) => {
   const { username, password, email } = req.body;
-  
+
   try {
     const alreadyExist = await db.User.findOne({
       where: {
@@ -26,7 +26,7 @@ export const postUsersRegister = async (req, res) => {
 
       }
 
-    }); 
+    });
 
     if (alreadyExist) {
       if (alreadyExist.userName === username) {
@@ -36,7 +36,7 @@ export const postUsersRegister = async (req, res) => {
         return res.status(409).json('Ya existe un usuario con ese email.');
 
       }
-  
+
     } else {
       const newUser = await db.User.create(
         {
@@ -45,16 +45,16 @@ export const postUsersRegister = async (req, res) => {
           email: email,
           role: 'gamer'
         },
-      
+
       );
-      
+
       res.status(201).json({ message: 'Usuario creado exitosamente' });
-  
+
     };
 
   } catch (error) {
     return res.status(500).json({ error: 'Error al insertar base de datos' });
-  
+
   };
 
 };
@@ -66,7 +66,7 @@ export const getUserById = async (req, res) => {
 
     if (findUser) {
       try {
-        return res.status(200).json({ 'Usuario encontrado': findUser });
+        return res.status(200).json(findUser);
 
       } catch (error) {
         return res.status(500).json({ message: error });
@@ -88,7 +88,7 @@ export const getUserById = async (req, res) => {
 export const getAuthUser = async (req, res) => {
   try {
     const currentUser = req.user;
-    
+
     return res.status(200).json({ 'Usuario actual': currentUser });
 
   } catch (error) {

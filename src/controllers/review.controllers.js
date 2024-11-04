@@ -1,107 +1,107 @@
 import db from "../../models/index.js";
 
-export const getAllReviews = async(req, res) => {
-  try{
+export const getAllReviews = async (req, res) => {
+  try {
     const obtainReviews = await db.Review.findAll();
 
-    if(obtainReviews.length === 0){
+    if (obtainReviews.length === 0) {
       return res.status(204).json('El listado de comentarios está vacío.');
 
-    }else{
+    } else {
       return res.status(200).json(obtainReviews);
 
     };
 
-  }catch(error){
+  } catch (error) {
     return res.status(500).json({ message: error });
 
   };
 
 };
 
-export const postReview = async(req, res) => {
-  const { game_id, user_id, rating, review } = req.body;
-  
-  try{
-    const newGame = await db.Game.create(
+export const postReview = async (req, res) => {
+  const { game_id, user_id, rating, comment } = req.body;
+
+  try {
+    const newReview = await db.Review.create(
       {
         game_id: game_id,
         user_id: user_id,
         rating: rating,
-        review: review
+        comment: comment
       },
-    
+
     )
 
-    return res.status(201).json({ message: 'Juego creado exitosamente.' });
+    return res.status(201).json(newReview);
 
-  }catch(error){
+  } catch (error) {
     return res.status(500).json({ message: error });
 
   };
 
 };
 
-export const updateReview = async(req, res) => {
-  const { game_id, user_id, rating, review  } = req.body;
+export const updateReview = async (req, res) => {
+  const { game_id, user_id, rating, comment } = req.body;
 
-  try{
+  try {
     const { id } = req.params;
-    const findGame = await db.Game.findByPk(id); // findByPk devuelve una promesa.
-    
-    if(findGame){
-      try{
-        findGame.set({
-            game_id: game_id,
-            user_id: user_id,
-            rating: rating,
-            review: review
+    const findReview = await db.Review.findByPk(id); // findByPk devuelve una promesa.
+
+    if (findReview) {
+      try {
+        findReview.set({
+          game_id: game_id,
+          user_id: user_id,
+          rating: rating,
+          comment: comment
         });
 
-        await findGame.save();
-        
+        await findReview.save();
+
         return res.status(200).json({ message: `El juego con ID ${id} se actualizó correctamente.` });
-      
-      }catch(err){
+
+      } catch (err) {
         return res.status(500).json({ message: err });
-      
+
       };
 
-    }else{
+    } else {
       return res.status(404).json(`El juego con ID ${id} no existe.`);
 
     };
 
-     
-  }catch(error){
+
+  } catch (error) {
     return res.status(500).json({ message: error });
 
   };
 
 };
 
-export const deleteReview = async(req, res) => {
-  try{
+export const deleteReview = async (req, res) => {
+  try {
     const { id } = req.params;
     const findReview = await db.Review.findByPk(id); // findByPk devuelve una promesa.
 
-    if(findReview){
-      try{
+    if (findReview) {
+      try {
         await findReview.destroy();
 
         return res.status(200).json({ message: `El comentario con ID ${id} fue borrado exitosamente.` });
 
-      }catch(error){
+      } catch (error) {
         return res.status(500).json({ message: error });
 
       };
 
-    }else{
+    } else {
       return res.status(404).json(`El comentario con ID ${id} no existe.`);
 
     };
 
-  }catch(error){
+  } catch (error) {
     return res.status(500).json({ message: error });
 
   };
