@@ -97,3 +97,41 @@ export const getAuthUser = async (req, res) => {
   };
 
 };
+
+export const updateUser = async (req, res) => {
+  const { id } = req.params;
+  const { username, email } = req.body;
+
+  try {
+    const user = await db.User.findByPk(id);
+
+    if (!user) {
+      return res.status(404).json({ message: `El usuario con ID ${id} no existe.` });
+    }
+
+    const alreadyExist = await db.User.findOne({
+      where: {
+        [Op.or]: [
+          { userName: username },
+          { email: email }
+        ],
+        id: { [Op.ne]: id }
+      }
+    });
+
+    if (alreadyExist) {
+      if (alreadyExist.userName === username) {
+        return res.status(409).json('El nombre de usuario ya existe.');
+      } else {
+        return res.status(409).json('Ya existe un usuario con ese email.');
+      }
+    }
+    user.userName = username;
+    user.email = email;
+    await user.save();
+    return res.status(200).json(user);
+  } catch (error) {
+    console.error("Error:", error);
+    return res.status(500).json({ error: 'Error al actualizar el usuario.' });
+  }
+};
