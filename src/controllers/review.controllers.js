@@ -19,6 +19,37 @@ export const getAllReviews = async (req, res) => {
 
 };
 
+export const getReviewsByGame = async (req, res) => {
+  const { gameId } = req.params;
+  
+  try {
+    const reviews = await db.Review.findAll({
+      where: { game_id: gameId },
+      include: [{
+        model: db.User,
+        attributes: ['userName', 'email'] 
+      }],
+      attributes: ['id', 'rating', 'comment', 'user_id'],
+    });
+
+    if (!reviews || reviews.length === 0) {
+      return res.status(404).json({ 
+        message: 'No se encontraron reviews para este juego' 
+      });
+    }
+
+    return res.status(200).json({
+      reviews
+    });
+    
+  } catch (error) {
+    return res.status(500).json({ 
+      message: 'Error al obtener las reviews',
+      error: error.message 
+    });
+  }
+};
+
 export const postReview = async (req, res) => {
   const { game_id, user_id, rating, comment } = req.body;
 
