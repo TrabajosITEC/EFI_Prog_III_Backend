@@ -2,15 +2,16 @@
 
 /** @type {import('sequelize-cli').Migration} */
 export async function up(queryInterface, Sequelize) {
-
+  const hashPassword = (await import('../src/helpers/hashPassword.cjs')).default;
+  
   await queryInterface.bulkInsert('User', [{
     userName: 'Manu',
-    passWord: 'Manu5*',
+    passWord: await hashPassword('Manu5*'),
     email: 'manu@nba.com',
     role: 'admin'
   }, {
     userName: 'Chapu',
-    passWord: 'Chapu5*',
+    passWord: await hashPassword('Chapu5*'),
     email: 'chapu@nba.com',
     role: 'gamer'
   },

@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
+import bcrypt from 'bcrypt';
 
-// Función que inicializa el modelo
 export default (sequelize) => {
   const User = sequelize.define('User', {
     userName: {
@@ -21,12 +21,23 @@ export default (sequelize) => {
     }
   }, {
     tableName: 'User',
-    timestamps: false
+    timestamps: false,
+    hooks: {
+      beforeCreate: async (user, options) => {
+        
+        const salt = await bcrypt.genSalt(10);
+        
+        user.passWord = await bcrypt.hash(user.passWord, salt);
+      }
+    }
   });
 
   User.associate = function (models) {
-    User.hasMany(models.Recipes, {
-      foreignKey: 'UserId',
+    User.hasMany(models.Purchase, {
+      foreignKey: 'user_id',
+    }),
+    User.hasMany(models.Review, {
+      foreignKey: 'user_id',
     })
   };
 
