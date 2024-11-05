@@ -13,6 +13,6 @@ routerReview.post('/', validateToken, postReview);
 
 routerReview.put('/:id', validateToken, blockedRouteFor('gamer'), updateReview);
 
-routerReview.delete('/:id', validateToken, blockedRouteFor('gamer'), deleteReview);
+routerReview.delete('/:id', validateToken, deleteReview);
 
 export default routerReview;
